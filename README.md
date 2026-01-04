@@ -30,7 +30,7 @@ No tutorials. No fluff. No copy-paste guides.
 ## Topics Covered (and Why)
 
 ### Linux (foundation)
-Core system behavior that everything else depends on:
+Core system behavior everything else depends on:
 - Load average vs CPU usage
 - Runnable vs running processes
 - I/O wait and uninterruptible sleep
@@ -41,12 +41,26 @@ Core system behavior that everything else depends on:
 
 ---
 
+### Networking (where most bugs hide)
+Understanding how network issues masquerade as app or CPU problems:
+- Packet loss vs latency
+- SYN queues and accept queues
+- Ephemeral port exhaustion
+- DNS delays and retries
+- TCP retransmits and timeouts
+- “The network is fine” (until it isn’t)
+
+📁 `networking/`
+
+---
+
 ### Kubernetes (when Linux is abstracted)
-Understanding how Linux behavior surfaces through Kubernetes:
+How Linux and networking behavior surface through Kubernetes:
 - CPU throttling vs usage
 - Node pressure vs pod metrics
 - Scheduling delays
 - Pod restarts with no obvious errors
+- CNI and kube-proxy side effects
 
 📁 `kubernetes/`
 
@@ -56,7 +70,7 @@ Understanding how Linux behavior surfaces through Kubernetes:
 Operational behavior of CI pipelines:
 - Queue vs executors
 - Idle agents with stuck builds
-- Disk and workspace issues
+- Disk and workspace exhaustion
 - Slow pipelines with “green” status
 
 📁 `jenkins/`
@@ -66,7 +80,7 @@ Operational behavior of CI pipelines:
 ### Python (as an operational tool)
 Python in long-running, real systems:
 - CPU vs GIL behavior
-- Memory growth
+- Memory growth and leaks
 - Thread contention
 - Debugging stuck or slow processes
 
@@ -90,7 +104,7 @@ Infrastructure and automation under failure:
 - ❌ Beginner tutorials  
 - ❌ Installation guides  
 - ❌ Tool marketing  
-- ❌ “10 commands every SRE should know” lists  
+- ❌ “Top 10 commands” lists  
 
 If it doesn’t help debug a real incident, it doesn’t belong here.
 
@@ -100,14 +114,16 @@ If it doesn’t help debug a real incident, it doesn’t belong here.
 
 Every note aims to answer:
 1. **What was confusing?**
-2. **What metric or signal was misleading?**
+2. **What signal or metric was misleading?**
 3. **What finally explained the behavior?**
 
 Preferred tools:
 - `vmstat`
 - `iostat`
-- `top`
+- `ss`, `netstat`
+- `tcpdump`
 - `uptime`
+- `top`
 - `strace` / `perf` (when needed)
 
 Short. Precise. Reproducible.
