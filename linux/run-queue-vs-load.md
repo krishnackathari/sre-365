@@ -1,3 +1,16 @@
+## Run queue vs CPU cores vs load average
+
+- CPU cores define how many processes can run in parallel
+- `r` shows how many processes want CPU
+- `b` shows how many processes are blocked
+- Load average reflects both over time
+
+Load alone is meaningless.
+It must be interpreted relative to CPU cores and run queue.
+
+High load with low `r` indicates blocked work,
+not CPU saturation.
+
 ### Important clarification about `r`
 
 - `r` does NOT mean processes currently running on CPU
