@@ -12,6 +12,13 @@ Use a hash map to store numbers we have already seen along with their indices, a
 
 ---
 
+#Complexity Analysis
+
+Time Complexity: O(n) — the array is traversed once and dictionary lookups are constant time.
+Space Complexity: O(n) — a hash map is used to store up to n elements.
+
+---
+
 ## Python Solution
 
 ```python
@@ -27,9 +34,3 @@ class Solution:
                 return [numbers[diff], i]
 
             numbers[num] = i
-
-
-#Complexity Analysis
-
-Time Complexity: O(n) — the array is traversed once and dictionary lookups are constant time.
-Space Complexity: O(n) — a hash map is used to store up to n elements.
