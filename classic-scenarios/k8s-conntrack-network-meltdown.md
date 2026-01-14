@@ -67,6 +67,8 @@ High load + retries + no clear CPU bottleneck
 
 ## Commit
 `git add classic-scenarios/k8s-conntrack-network-meltdown.md`
+
 `git commit -m "Day 14: Kubernetes conntrack exhaustion causes network meltdown"`
+
 `git push`
 
