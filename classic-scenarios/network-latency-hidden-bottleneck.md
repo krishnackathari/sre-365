@@ -109,6 +109,8 @@ Kernel networking stack saturated by:
 ## Commit
 
 `git add classic-scenarios/network-latency-hidden-bottleneck.md`
+
 `git commit -m "Add real incident: network stack saturation causes hidden latency"`
+
 `git push`
 
