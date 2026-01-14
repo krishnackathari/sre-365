@@ -13,6 +13,7 @@
 
 ## Check conntrack usage
 `cat /proc/sys/net/netfilter/nf_conntrack_count`
+
 `cat /proc/sys/net/netfilter/nf_conntrack_max`
 
 Example:
