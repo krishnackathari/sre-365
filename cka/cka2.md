@@ -327,4 +327,3 @@ kubectl get nodes
 - No endpoints → **Selector mismatch**
 - CrashLoop + ConfigMap → **subPath**
 - kubectl broken → **kubelet / apiserver**
-
