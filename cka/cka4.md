@@ -1,5 +1,4 @@
-CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 4)
-
+# CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 3)
 
 ---
 
