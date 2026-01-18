@@ -87,4 +87,216 @@ Edit:
 replicaCount: 3
 service:
   type: NodePort
+```
+
+Template fixes:
+```text
+Deployment apiVersion → apps/v1
+Service template → {{ .Values.service.name }}
+```
+
+```bash
+helm lint /opt/webapp-color-apd
+helm install webapp-color-apd -n frontend-apd /opt/webapp-color-apd
+```
+
+---
+
+## Q6 – Gateway API (HTTPRoute)
+**Context:** Route traffic from Gateway → backend service.
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: web-route
+  namespace: nginx-gateway
+spec:
+  hostnames: ["cluster2-controlplane"]
+  parentRefs:
+  - name: web-gateway
+  rules:
+  - backendRefs:
+    - name: web-service
+      port: 80
+```
+
+---
+
+## Q7 – RBAC: Create SA, Role, Binding
+**Context:** Allow ServiceAccount to GET deployments.
+
+```bash
+kubectl create sa deploy-cka20-arch
+kubectl create clusterrole deploy-role-cka20-arch \
+--resource=deployments --verb=get
+kubectl create clusterrolebinding deploy-role-binding-cka20-arch \
+--clusterrole=deploy-role-cka20-arch \
+--serviceaccount=default:deploy-cka20-arch
+```
+
+---
+
+## Q8 – Service & Pod DNS
+**Context:** Verify service and pod name resolution.
+
+```bash
+kubectl run nginx-resolver-cka06-svcn --image=nginx
+kubectl expose pod nginx-resolver-cka06-svcn \
+--name=nginx-resolver-service-cka06-svcn \
+--port=80 --type=ClusterIP
+```
+
+```bash
+kubectl run test --rm -it --image=busybox:1.28 -- \
+nslookup nginx-resolver-service-cka06-svcn
+```
+
+```bash
+IP=$(kubectl get pod nginx-resolver-cka06-svcn -o wide --no-headers | awk '{print $6}' | tr '.' '-')
+kubectl run test --rm -it --image=busybox:1.28 -- \
+nslookup $IP.default.pod
+```
+
+---
+
+## Q9 – Pod stuck in Pending
+**Context:** Scheduler is crashing → pods never schedule.
+
+```bash
+kubectl get pods -n kube-system
+kubectl logs kube-scheduler-<node> -n kube-system
+```
+
+```bash
+vi /etc/kubernetes/manifests/kube-scheduler.yaml
+```
+
+```text
+/etc/kubernetes/scheduler.config ❌
+/etc/kubernetes/scheduler.conf   ✅
+```
+
+---
+
+## Q10 – Rollback Deployment
+**Context:** Bad rollout → revert and scale.
+
+```bash
+kubectl rollout undo deploy webapp-wl07 -n dev-wl07
+kubectl describe deploy webapp-wl07 -n dev-wl07 | grep Image
+echo "kodekloud/webapp-color" > /root/rolling-back-record.txt
+kubectl scale deploy webapp-wl07 -n dev-wl07 --replicas=5
+```
+
+---
+
+## Q11 – CreateContainerConfigError (Secrets)
+**Context:** Pod fails due to wrong secret keys.
+
+```bash
+kubectl logs <pod-name>
+kubectl get events --field-selector involvedObject.name=<pod-name>
+kubectl edit deploy db-deployment-cka05-trb
+```
+
+```text
+Fix env key names to match Secret keys
+Do NOT edit Secrets
+```
+
+---
+
+## Q12 – RollingUpdate + Rollback
+**Context:** Control rollout behavior and rollback.
+
+```yaml
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 40%
+    maxSurge: 55%
+```
+
+```bash
+kubectl set image deploy ocean-tv-wl09 webapp-color=kodekloud/webapp-color:v2
+kubectl rollout history deploy ocean-tv-wl09
+echo "2" > /opt/revision-count.txt
+kubectl rollout undo deploy ocean-tv-wl09
+```
+
+---
+
+## Q13 – Ingress (nginx)
+**Context:** Expose service via ingress.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-cka04-svcn
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx-cka04
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service-cka04-svcn
+            port:
+              number: 80
+```
+
+---
+
+## Q14 – Deployment paused
+**Context:** Deployment shows 0 UP-TO-DATE.
+
+```bash
+kubectl rollout status deploy black-cka25-trb
+kubectl rollout resume deploy black-cka25-trb
+```
+
+---
+
+## Q15 – Service targetPort mismatch
+**Context:** App unreachable due to wrong port.
+
+```bash
+kubectl edit svc purple-svc-cka27-trb
+```
+
+```text
+targetPort: 8080 ❌
+targetPort: 80   ✅
+```
+
+---
+
+## Q16 – StorageClass
+**Context:** Create local storage class.
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: banana-sc-cka08-str
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+```
+
+---
+
+## 🔑 Exam Pattern Memory Hooks
+- Pending pod → **Scheduler**
+- Replicas not updating → **Controller Manager**
+- 0/1 Ready → **Secrets / env mismatch**
+- Service broken → **targetPort**
+- Deployment stuck → **rollout resume**
+- Static PVC resize → **claimRef**
 
