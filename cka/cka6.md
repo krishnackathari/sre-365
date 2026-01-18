@@ -1,4 +1,4 @@
-CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 6)
+# CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 6)i
 
 Purpose:
 • Lock in **exam-speed muscle memory**

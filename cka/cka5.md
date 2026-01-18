@@ -1,4 +1,4 @@
-CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 5)
+# CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 5)
 
 Purpose:
 • Ultra-fast recall

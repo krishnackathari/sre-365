@@ -1,8 +1,9 @@
-CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 7)
+# CKA Mock Exam – Rapid Memorization Cheat Sheet (Mock 7)
 
-Score: 0%  
-Pass Percentage: 74%  
-Goal: **Pattern recognition + zero hesitation execution**
+Purpose:
+• Lock in **exam-speed muscle memory**
+• Recognize **standard patterns instantly**
+• Avoid overthinking — fix, verify, move on
 
 RULE FOR EXAM:
 👉 Identify the Kubernetes object  
