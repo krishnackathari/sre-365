@@ -25,8 +25,41 @@
 
 ## 🛠 Commands / Tools I Used
 ```bash
-# Example
+# Examples (replace with what you actually ran)
 ps aux
 strace -p <pid>
 kubectl describe pod <name>
 openssl x509 -in cert.pem -text
+```
+
+---
+
+## 🧪 Lab / Hands-on Summary
+- What did I build or break today?
+- What failed?
+- How did I debug it?
+
+---
+
+## 🚨 Failure / Incident Scenario (Interview Framing)
+**Scenario:** <Describe a realistic failure you simulated or studied>  
+**Root cause:**  
+**How I detected it:**  
+**How I mitigated it:**  
+**How I would prevent it next time:**
+
+---
+
+## 🗣 Interview Soundbite
+> “<One crisp sentence you could confidently say in an interview about today’s topic>”
+
+---
+
+## ❓ Open Questions / Things to Revisit
+- 
+- 
+
+---
+
+## 🔗 References
+- <Link to How Linux Works chapter / Mumshad lesson / docs>
