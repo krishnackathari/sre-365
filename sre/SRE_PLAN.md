@@ -1,3 +1,4 @@
+```text
 sre-180-day-plan/
 ├── README.md
 ├── plan/
@@ -14,9 +15,13 @@ sre-180-day-plan/
     ├── terraform/
     ├── gitops/
     └── sre/
+```
 
-notes template:
+---
 
+### notes template:
+
+```md
 # Day X – SRE Prep (Important Notes)
 
 ## 1. One-liner takeaway
@@ -36,3 +41,4 @@ notes template:
 
 ## 5. Interview Soundbite
 <One crisp sentence you could say in an interview>
+```
