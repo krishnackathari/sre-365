@@ -21,7 +21,7 @@ sre-180-day-plan/
 
 ### notes template:
 
-```md
+```text
 # Day X – SRE Prep (Important Notes)
 
 ## 1. One-liner takeaway
