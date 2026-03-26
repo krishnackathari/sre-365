@@ -12,19 +12,19 @@ I can inspect any running process using /proc to understand its state, memory us
 
 ## 🧠 Core Concepts Learned (max 3–5 bullets)
 - /proc is a kernel-exposed virtual filesystem showing real-time process data  
-- Each process has /proc/<pid>/ with status, fd, cmdline, and network info  
+- Each process has `/proc/<pid>/` with status, fd, cmdline, and network info  
 - File Descriptors (FDs) represent all resources: files, sockets, pipes, terminals  
-- /proc/<pid>/fd shows actual open FDs, while lsof shows additional metadata (mem, txt, cwd)  
+- `/proc/<pid>/fd` shows actual open FDs, while lsof shows additional metadata (mem, txt, cwd)  
 - FD leaks lead to “too many open files” and service failures  
 
 ---
 
 ## 🔍 Deep Understanding (Explain it like I’m teaching a junior engineer)
 Linux exposes process information through /proc, which is a virtual filesystem backed by the kernel, not actual disk files.  
-Each process has a directory /proc/<pid>/ that contains everything the OS knows about it—its state, memory usage, command, and resources.  
+Each process has a directory `/proc/<pid>/` that contains everything the OS knows about it—its state, memory usage, command, and resources.  
 File descriptors are integer handles (0,1,2,...) that represent open resources. By default, every process has stdin (0), stdout (1), and stderr (2), usually pointing to a terminal like /dev/pts/X.  
 Additional FDs (3, 4, …) represent sockets, files, or pipes.  
-The /proc/<pid>/fd directory shows only real open FDs, while lsof includes memory-mapped libraries and executables, which is why it looks larger.  
+The `/proc/<pid>/fd` directory shows only real open FDs, while lsof includes memory-mapped libraries and executables, which is why it looks larger.  
 SREs use this to debug issues like FD leaks, stuck processes, and resource exhaustion in production systems.
 
 ---
@@ -46,7 +46,7 @@ ss -p                                   # inspect sockets
 
 ## 🧪 Observations from Lab
 - A simple process usually has 3–4 FDs: stdin, stdout, stderr, and sometimes a socket  
-- /proc/<pid>/fd entries are symlinks pointing to actual resources  
+- `/proc/<pid>/fd` entries are symlinks pointing to actual resources  
 - lsof shows many “mem” entries (shared libraries), which are NOT actual FDs  
 - Terminal processes map 0,1,2 → /dev/pts/X  
 - Sockets appear as socket:[inode] and represent active connections  
@@ -67,7 +67,7 @@ ss -p | grep <pid>
 ls -l /proc/<pid>/fd
 ```
 
-**Q: Why does lsof show more entries than /proc/<pid>/fd?**  
+**Q: Why does lsof show more entries than `/proc/<pid>/fd`?**  
 A:  
 Because lsof includes memory-mapped files, executables, and libraries (mem, txt, cwd), not just actual file descriptors.
 
@@ -96,5 +96,5 @@ watch "ls /proc/<pid>/fd | wc -l"
 ## 🎯 Key Takeaways
 - /proc is the most direct way to see what the kernel knows about a process  
 - File descriptors represent all active resources used by a process  
-- Only /proc/<pid>/fd shows real open FDs; lsof shows a broader view  
+- Only `/proc/<pid>/fd` shows real open FDs; lsof shows a broader view  
 - Monitoring FD count is critical for debugging production issues  
