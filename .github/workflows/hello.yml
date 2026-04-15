@@ -1,0 +1,24 @@
+name: Hello World
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Allows manual execution from the GitHub UI
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print a message
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Show the runner OS
+        run: uname -a
+
+      - name: Show environment info
+        run: |
+          echo "Repo:   $GITHUB_REPOSITORY"
+          echo "Branch: $GITHUB_REF_NAME"
+          echo "SHA:    $GITHUB_SHA"
+          echo "Actor:  $GITHUB_ACTOR"
